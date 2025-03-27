@@ -1,22 +1,18 @@
-// ✅ Your Firebase config (Replace with actual credentials)
+// Your Firebase config and initialization
 const firebaseConfig = {
-  apiKey: "AIzaSyBsTY9yL4e3dG6Clpd7WuweT8oBv0Kb4yM",
-  authDomain: "chatroom-46108.firebaseapp.com",
-  databaseURL: "https://chatroom-46108-default-rtdb.firebaseio.com", // This looks good
-  projectId: "chatroom-46108",
-  storageBucket: "chatroom-46108.appspot.com", // Corrected here
-  messagingSenderId: "611157906840",
-  appId: "1:611157906840:web:14e6846a72fcdf4d4c47ed",
-  measurementId: "G-FPV2M8FY06"
+    apiKey: "AIzaSyBsTY9yL4e3dG6Clpd7WuweT8oBv0Kb4yM",
+    authDomain: "chatroom-46108.firebaseapp.com",
+    databaseURL: "https://chatroom-46108-default-rtdb.firebaseio.com",
+    projectId: "chatroom-46108",
+    storageBucket: "chatroom-46108.firebasestorage.app",
+    messagingSenderId: "611157906840",
+    appId: "1:611157906840:web:14e6846a72fcdf4d4c47ed",
+    measurementId: "G-FPV2M8FY06"
 };
 
-
-
-// ✅ Initialize Firebase (using v8 syntax)
-firebase.initializeApp(firebaseConfig);
+// Initialize Firebase
+const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
-
-// ✅ Your Firebase config and initialization here (same as before)
 
 let userName = "";
 let roomCode = "";
@@ -30,12 +26,18 @@ document.getElementById('joinBtn').addEventListener('click', () => {
         document.getElementById('chat').classList.remove('hidden');
         document.getElementById('chatHeader').innerText = `Room: ${roomCode}`;
 
+        // Add user to the online users list
+        addUserToRoom(roomCode, userName);
+
         listenForMessages();
+        listenForOnlineUsers();
     }
 });
 
+// Send Message
 document.getElementById('sendBtn').addEventListener('click', sendMessage);
 
+// Send Message with Enter key
 document.getElementById('messageInput').addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
         sendMessage();
@@ -62,14 +64,46 @@ function displayMessage({ userName, text }) {
     const chatBox = document.getElementById('chatBox');
     const msgDiv = document.createElement('div');
     msgDiv.classList.add('message');
-    msgDiv.textContent = `${userName}: ${text}`;
 
+    // Check if it's the current user's message or not
     if (userName === userName) {
-        msgDiv.classList.add('myMessage');
+        msgDiv.classList.add('myMessage'); // Right side for your messages
     } else {
-        msgDiv.classList.add('otherMessage');
+        msgDiv.classList.add('otherMessage'); // Left side for others' messages
     }
 
+    msgDiv.textContent = `${userName}: ${text}`;
     chatBox.appendChild(msgDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function listenForOnlineUsers() {
+    // Listen for changes to the online users list
+    db.ref(`onlineUsers/${roomCode}`).on('value', (snapshot) => {
+        const users = snapshot.val();
+        updateOnlineUsers(users);
+    });
+}
+
+function updateOnlineUsers(users) {
+    const onlineUsersList = document.getElementById('onlineUsers');
+    onlineUsersList.innerHTML = ''; // Clear the current list
+
+    for (let user in users) {
+        const userDiv = document.createElement('div');
+        userDiv.classList.add('onlineUser');
+        userDiv.textContent = user;
+        onlineUsersList.appendChild(userDiv);
+    }
+}
+
+function addUserToRoom(roomCode, userName) {
+    const userRef = db.ref(`onlineUsers/${roomCode}/${userName}`);
+
+    userRef.set(true); // Set user to true when they join
+
+    // Remove user when they disconnect
+    window.addEventListener('beforeunload', () => {
+        userRef.remove();
+    });
 }
