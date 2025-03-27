@@ -39,7 +39,7 @@ document.getElementById('launchBtn').addEventListener('click', () => {
     win.document.title = "Google Drive";
     const link = win.document.createElement('link');
     link.rel = 'icon';
-    link.href = 'icons/Google_Drive_icon-icons.com_75713.ico';
+    link.href = 'icons/googledrive.png';
     win.document.head.appendChild(link);
 
     win.document.body.style.margin = '0';
