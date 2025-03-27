@@ -1,13 +1,15 @@
 // ✅ Your Firebase config (Replace with actual credentials)
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "your-project-id.firebaseapp.com",
-    databaseURL: "https://your-project-id.firebaseio.com",
-    projectId: "your-project-id",
-    storageBucket: "your-project-id.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBsTY9yL4e3dG6Clpd7WuweT8oBv0Kb4yM",
+  authDomain: "chatroom-46108.firebaseapp.com",
+  databaseURL: "https://chatroom-46108-default-rtdb.firebaseio.com",
+  projectId: "chatroom-46108",
+  storageBucket: "chatroom-46108.firebasestorage.app",
+  messagingSenderId: "611157906840",
+  appId: "1:611157906840:web:14e6846a72fcdf4d4c47ed",
+  measurementId: "G-FPV2M8FY06"
 };
+
 
 // ✅ Initialize Firebase (using v8 syntax)
 firebase.initializeApp(firebaseConfig);
