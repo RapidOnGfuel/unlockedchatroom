@@ -2,13 +2,14 @@
 const firebaseConfig = {
   apiKey: "AIzaSyBsTY9yL4e3dG6Clpd7WuweT8oBv0Kb4yM",
   authDomain: "chatroom-46108.firebaseapp.com",
-  databaseURL: "https://chatroom-46108-default-rtdb.firebaseio.com",
+  databaseURL: "https://chatroom-46108-default-rtdb.firebaseio.com", // This looks good
   projectId: "chatroom-46108",
-  storageBucket: "chatroom-46108.firebasestorage.app",
+  storageBucket: "chatroom-46108.appspot.com", // Corrected here
   messagingSenderId: "611157906840",
   appId: "1:611157906840:web:14e6846a72fcdf4d4c47ed",
   measurementId: "G-FPV2M8FY06"
 };
+
 
 
 // ✅ Initialize Firebase (using v8 syntax)
