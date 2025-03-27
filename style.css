@@ -17,23 +17,22 @@ body {
     margin: 20px auto;
     text-align: left;
 }
-/* Overall Chat Container */
+
 #chatBox {
     display: flex;
-    flex-direction: column; /* Stack messages vertically */
-    align-items: flex-start; /* Align to the left by default */
+    flex-direction: column;
+    align-items: flex-start;
     height: 300px;
     overflow-y: auto;
     border: 1px solid #ccc;
     background: white;
     padding: 10px;
     margin-bottom: 20px;
-    user-select: none; /* Disable text selection */
+    user-select: none;
 }
 
-/* Individual Message Styling */
 .message {
-    position: relative; /* Position relative to contain the timestamp */
+    position: relative;
     padding: 10px 15px;
     border-radius: 18px;
     margin: 5px 0;
@@ -43,34 +42,31 @@ body {
     font-size: 14px;
 }
 
+.myMessage {
+    background-color: #007aff;
+    color: white;
+    align-self: flex-end;
+    text-align: right;
+    margin-left: auto;
+}
+
+.otherMessage {
+    background-color: #e5e5ea;
+    color: black;
+    align-self: flex-start;
+    text-align: left;
+    margin-right: auto;
+    border: 1px solid #ddd;
+}
+
 .timestamp {
     position: absolute;
     bottom: 1px;
     right: 10px;
     font-size: 10px;
-    color: #000000; /* Lighter color for the timestamp */
+    color: #000000;
 }
 
-/* Sender's Messages (Right side) */
-.myMessage {
-    background-color: #007aff; /* iOS blue color */
-    color: white;
-    align-self: flex-end; /* Align to t he right */
-    text-align: right;
-    margin-left: auto; /* Pushes the message to the right side */
-}
-
-/* Receiver's Messages (Left side) */
-.otherMessage {
-    background-color: #e5e5ea; /* Light grey background for received messages */
-    color: black;
-    align-self: flex-start; /* Align to the left */
-    text-align: left;
-    margin-right: auto; /* Pushes the message to the left side */
-    border: 1px solid #ddd; /* Border for the bubble effect */
-}
-
-/* Input Field & Send Button */
 #messageInput {
     width: 80%;
     padding: 10px;
@@ -80,7 +76,7 @@ body {
 }
 
 #sendBtn {
-    background-color: #007aff; /* iOS blue color */
+    background-color: #007aff;
     color: white;
     border: none;
     padding: 10px;
@@ -89,10 +85,9 @@ body {
 }
 
 #sendBtn:hover {
-    background-color: #0056b3; /* Slightly darker blue for hover effect */
+    background-color: #0056b3;
 }
 
-/* Online Users Section */
 #onlineUsers {
     margin-top: 10px;
 }
