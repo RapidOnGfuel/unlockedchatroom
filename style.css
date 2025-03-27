@@ -49,13 +49,14 @@ body {
     right: 10px;
     font-size: 10px;
     color: #000000; /* Lighter color for the timestamp */
+    background-color: white;
 }
 
 /* Sender's Messages (Right side) */
 .myMessage {
     background-color: #007aff; /* iOS blue color */
     color: white;
-    align-self: flex-end; /* Align to the right */
+    align-self: flex-end; /* Align to t he right */
     text-align: right;
     margin-left: auto; /* Pushes the message to the right side */
 }
