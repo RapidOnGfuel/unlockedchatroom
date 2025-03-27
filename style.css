@@ -70,12 +70,34 @@ body {
     color: #000000;
 }
 
+#messageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputWrapper {
+    position: relative;
+    width: 70%;
+}
+
 #messageInput {
-    width: 80%;
+    width: 100%;
     padding: 10px;
     border-radius: 20px;
     border: 1px solid #ccc;
-    margin-right: 10px;
+    padding-right: 10px; /* Space for the icon */
+}
+
+.icon-button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
 }
 
 #sendBtn {
@@ -85,6 +107,7 @@ body {
     padding: 10px;
     border-radius: 20px;
     cursor: pointer;
+    margin-left: 60px;
 }
 
 #sendBtn:hover {
@@ -100,6 +123,25 @@ body {
     background-color: #f0f0f5;
     border-radius: 10px;
     margin: 2px 0;
+}
+
+#replyBox {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    position: relative;
+}
+
+.replyContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#replyText {
+    flex-grow: 1;
 }
 
 #warning {

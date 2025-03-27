@@ -28,13 +28,26 @@
         <div id="chatBox"></div>
 
         <!-- Online Users -->
-         <a>Active Users:</a>
+        <a><b>Active Users:</b></a>
         <div id="onlineUsers"></div>
 
+        <!-- Reply Box -->
+        <div id="replyBox" class="hidden">
+            <div class="replyContent">
+                <span id="closeReply" class="close">&times;</span>
+                <div id="replyText"></div>
+            </div>
+        </div>
+
         <!-- Image Input, Message Input & Send Button -->
-        <input type="file" id="imageInput" accept="image/*">
-        <input type="text" id="messageInput" placeholder="Type a message...">
-        <button id="sendBtn">Send</button>
+        <div id="messageContainer">
+            <input type="file" id="imageInput" accept="image/*" style="display: none;">
+            <div class="inputWrapper">
+                <input type="text" id="messageInput" placeholder="Type a message...">
+                <button id="uploadBtn" class="icon-button">📷</button> <!-- Upload Icon -->
+            </div>
+            <button id="sendBtn">Send</button>
+        </div>
     </div>
 
     <!-- How to Use Popup -->
@@ -50,7 +63,7 @@
                 This is a unfiltered/unmonitored site where people can discuss topics without school spyware logging everything they do.<br>
                 Enter your username, and then the code your friend gave you, or, make one up and share it with others!<br> <br>
                 <u>You can request chats to be cleared, just add me on discord (1337.rapid)</u><br>
-                I will <b>clear chats weekely</b> at the same time, <b>6pm PST</b>, unless busy, chats will clear every <b>SUNDAY</b>.
+                I will <b>clear chats weekly</b> at the same time, <b>6pm PST</b>, unless busy, chats will clear every <b>SUNDAY</b>.
             </p>
         </div>
     </div>

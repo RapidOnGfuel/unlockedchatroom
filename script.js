@@ -16,6 +16,7 @@ const db = firebase.database();
 
 let userName = "";
 let roomCode = "";
+let replyToMessage = null;
 
 document.getElementById('joinBtn').addEventListener('click', () => {
     userName = document.getElementById('username').value.trim();
@@ -75,7 +76,14 @@ document.getElementById('messageInput').addEventListener('keydown', (event) => {
     }
 });
 
-document.getElementById('imageInput').addEventListener('change', handleImageUpload);
+document.getElementById('uploadBtn').addEventListener('click', () => {
+    document.getElementById('imageInput').click();
+});
+
+document.getElementById('closeReply').addEventListener('click', () => {
+    document.getElementById('replyBox').classList.add('hidden');
+    replyToMessage = null;
+});
 
 function handleImageUpload(event) {
     const file = event.target.files[0];
@@ -94,7 +102,15 @@ function sendMessage(content = null, isImage = false) {
     if (text.trim()) {
         const msgRef = db.ref(`chats/${roomCode}`).push();
         const timestamp = new Date().toISOString();
-        msgRef.set({ userName, text, timestamp, isImage });
+        const messageData = { userName, text, timestamp, isImage };
+
+        if (replyToMessage) {
+            messageData.replyTo = replyToMessage;
+            replyToMessage = null;
+            document.getElementById('replyBox').classList.add('hidden');
+        }
+
+        msgRef.set(messageData);
         if (!isImage) {
             document.getElementById('messageInput').value = '';
         }
@@ -108,19 +124,33 @@ function listenForMessages() {
     });
 }
 
-function displayMessage({ userName: senderName, text, timestamp, isImage }) {
+function displayMessage({ userName: senderName, text, timestamp, isImage, replyTo }) {
     const chatBox = document.getElementById('chatBox');
     const msgDiv = document.createElement('div');
     msgDiv.classList.add('message');
 
-    // Determine if the message is from the current user
     if (senderName === userName) {
-        msgDiv.classList.add('myMessage'); // Blue and right side for the current user's messages
+        msgDiv.classList.add('myMessage');
     } else {
-        msgDiv.classList.add('otherMessage'); // Grey and left side for others' messages
+        msgDiv.classList.add('otherMessage');
     }
 
     const time = new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+
+    if (replyTo) {
+        const replyDiv = document.createElement('div');
+        replyDiv.classList.add('replyBox');
+        if (replyTo.isImage) {
+            const img = document.createElement('img');
+            img.src = replyTo.text;
+            img.style.maxWidth = '100%';
+            img.style.borderRadius = '10px';
+            replyDiv.appendChild(img);
+        } else {
+            replyDiv.innerHTML = `<strong>${replyTo.senderName}</strong>: ${replyTo.text}`;
+        }
+        msgDiv.appendChild(replyDiv);
+    }
 
     if (isImage) {
         const img = document.createElement('img');
@@ -129,20 +159,49 @@ function displayMessage({ userName: senderName, text, timestamp, isImage }) {
         img.style.borderRadius = '10px';
         msgDiv.appendChild(img);
     } else {
-        msgDiv.innerHTML = `<span>${senderName}: ${text}</span>`;
+        const messageText = document.createElement('span');
+        if (text.length > 500) {
+            const shortText = text.substring(0, 500);
+            messageText.innerHTML = `${shortText}... <a href="#" class="viewMore">View More</a>`;
+            messageText.querySelector('.viewMore').addEventListener('click', (e) => {
+                e.preventDefault();
+                messageText.innerHTML = text;
+            });
+        } else {
+            messageText.textContent = text;
+        }
+        msgDiv.appendChild(messageText);
     }
 
     const timestampSpan = document.createElement('span');
     timestampSpan.classList.add('timestamp');
     timestampSpan.textContent = time;
-
     msgDiv.appendChild(timestampSpan);
 
-    // Add spacing between messages
-    msgDiv.style.marginBottom = '10px';
+    msgDiv.addEventListener('click', () => {
+        replyToMessage = { senderName, text, isImage };
+        showReplyBox(senderName, text, isImage);
+    });
 
     chatBox.appendChild(msgDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function showReplyBox(senderName, text, isImage) {
+    const replyBox = document.getElementById('replyBox');
+    const replyText = document.getElementById('replyText');
+    replyBox.classList.remove('hidden');
+
+    if (isImage) {
+        const img = document.createElement('img');
+        img.src = text;
+        img.style.maxWidth = '100%';
+        img.style.borderRadius = '10px';
+        replyText.innerHTML = '';
+        replyText.appendChild(img);
+    } else {
+        replyText.innerHTML = `<strong>${senderName}</strong>: ${text}`;
+    }
 }
 
 function listenForOnlineUsers() {
