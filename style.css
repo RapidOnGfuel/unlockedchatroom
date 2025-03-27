@@ -45,11 +45,10 @@ body {
 
 .timestamp {
     position: absolute;
-    bottom: 5px;
+    bottom: 1px;
     right: 10px;
     font-size: 10px;
     color: #000000; /* Lighter color for the timestamp */
-    background-color: white;
 }
 
 /* Sender's Messages (Right side) */
