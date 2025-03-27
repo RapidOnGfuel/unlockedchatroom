@@ -108,15 +108,16 @@ function listenForMessages() {
     });
 }
 
-function displayMessage({ userName, text, timestamp, isImage }) {
+function displayMessage({ userName: senderName, text, timestamp, isImage }) {
     const chatBox = document.getElementById('chatBox');
     const msgDiv = document.createElement('div');
     msgDiv.classList.add('message');
 
-    if (userName === userName) {
-        msgDiv.classList.add('myMessage');
+    // Determine if the message is from the current user
+    if (senderName === userName) {
+        msgDiv.classList.add('myMessage'); // Blue and right side for the current user's messages
     } else {
-        msgDiv.classList.add('otherMessage');
+        msgDiv.classList.add('otherMessage'); // Grey and left side for others' messages
     }
 
     const time = new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
@@ -128,7 +129,7 @@ function displayMessage({ userName, text, timestamp, isImage }) {
         img.style.borderRadius = '10px';
         msgDiv.appendChild(img);
     } else {
-        msgDiv.innerHTML = `<span>${userName}: ${text}</span>`;
+        msgDiv.innerHTML = `<span>${senderName}: ${text}</span>`;
     }
 
     const timestampSpan = document.createElement('span');
@@ -136,6 +137,10 @@ function displayMessage({ userName, text, timestamp, isImage }) {
     timestampSpan.textContent = time;
 
     msgDiv.appendChild(timestampSpan);
+
+    // Add spacing between messages
+    msgDiv.style.marginBottom = '10px';
+
     chatBox.appendChild(msgDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
 }

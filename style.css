@@ -40,6 +40,7 @@ body {
     max-width: 70%;
     word-wrap: break-word;
     font-size: 14px;
+    margin-bottom: 10px; /* Add spacing between messages */
 }
 
 .myMessage {
@@ -48,6 +49,7 @@ body {
     align-self: flex-end;
     text-align: right;
     margin-left: auto;
+    margin-right: 10px; /* Add space on the right */
 }
 
 .otherMessage {
@@ -56,15 +58,16 @@ body {
     align-self: flex-start;
     text-align: left;
     margin-right: auto;
+    margin-left: 10px; /* Add space on the left */
     border: 1px solid #ddd;
 }
 
 .timestamp {
     position: absolute;
-    bottom: 5px;
+    bottom: 0px;
     right: 10px;
     font-size: 10px;
-    color: #888;
+    color: #000000;
 }
 
 #messageInput {
@@ -100,7 +103,7 @@ body {
 }
 
 #warning {
-    background-color: #ffda44;
+    background-color: #ffcc00;
     color: black;
     text-align: center;
     padding: 10px;
