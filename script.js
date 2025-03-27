@@ -26,7 +26,6 @@ document.getElementById('joinBtn').addEventListener('click', () => {
         document.getElementById('chat').classList.remove('hidden');
         document.getElementById('chatHeader').innerText = `Room: ${roomCode}`;
 
-        // Add user to the online users list
         addUserToRoom(roomCode, userName);
 
         listenForMessages();
@@ -34,23 +33,37 @@ document.getElementById('joinBtn').addEventListener('click', () => {
     }
 });
 
-// Send Message
-document.getElementById('sendBtn').addEventListener('click', sendMessage);
+document.getElementById('sendBtn').addEventListener('click', () => sendMessage());
 
-// Send Message with Enter key
 document.getElementById('messageInput').addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
         sendMessage();
     }
 });
 
-function sendMessage() {
-    const text = document.getElementById('messageInput').value;
+document.getElementById('imageInput').addEventListener('change', handleImageUpload);
+
+function handleImageUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const base64String = e.target.result;
+            sendMessage(base64String, true);
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+function sendMessage(content = null, isImage = false) {
+    const text = content || document.getElementById('messageInput').value;
     if (text.trim()) {
         const msgRef = db.ref(`chats/${roomCode}`).push();
-        const timestamp = new Date().toISOString(); // Get current time in ISO format
-        msgRef.set({ userName, text, timestamp });
-        document.getElementById('messageInput').value = ''; // Clear input field
+        const timestamp = new Date().toISOString();
+        msgRef.set({ userName, text, timestamp, isImage });
+        if (!isImage) {
+            document.getElementById('messageInput').value = '';
+        }
     }
 }
 
@@ -61,29 +74,39 @@ function listenForMessages() {
     });
 }
 
-function displayMessage({ userName, text, timestamp }) {
+function displayMessage({ userName, text, timestamp, isImage }) {
     const chatBox = document.getElementById('chatBox');
     const msgDiv = document.createElement('div');
     msgDiv.classList.add('message');
 
-    // Check if it's the current user's message or not
     if (userName === userName) {
-        msgDiv.classList.add('myMessage'); // Right side for your messages
+        msgDiv.classList.add('myMessage');
     } else {
-        msgDiv.classList.add('otherMessage'); // Left side for others' messages
+        msgDiv.classList.add('otherMessage');
     }
 
-    // Format the timestamp to 24-hour time
     const time = new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
 
-    // Create message content with timestamp
-    msgDiv.innerHTML = `<span>${userName}: ${text}</span><span class="timestamp">${time}</span>`;
+    if (isImage) {
+        const img = document.createElement('img');
+        img.src = text;
+        img.style.maxWidth = '100%';
+        img.style.borderRadius = '10px';
+        msgDiv.appendChild(img);
+    } else {
+        msgDiv.innerHTML = `<span>${userName}: ${text}</span>`;
+    }
+
+    const timestampSpan = document.createElement('span');
+    timestampSpan.classList.add('timestamp');
+    timestampSpan.textContent = time;
+
+    msgDiv.appendChild(timestampSpan);
     chatBox.appendChild(msgDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 function listenForOnlineUsers() {
-    // Listen for changes to the online users list
     db.ref(`onlineUsers/${roomCode}`).on('value', (snapshot) => {
         const users = snapshot.val();
         updateOnlineUsers(users);
@@ -92,7 +115,7 @@ function listenForOnlineUsers() {
 
 function updateOnlineUsers(users) {
     const onlineUsersList = document.getElementById('onlineUsers');
-    onlineUsersList.innerHTML = ''; // Clear the current list
+    onlineUsersList.innerHTML = '';
 
     for (let user in users) {
         const userDiv = document.createElement('div');
@@ -104,10 +127,8 @@ function updateOnlineUsers(users) {
 
 function addUserToRoom(roomCode, userName) {
     const userRef = db.ref(`onlineUsers/${roomCode}/${userName}`);
+    userRef.set(true);
 
-    userRef.set(true); // Set user to true when they join
-
-    // Remove user when they disconnect
     window.addEventListener('beforeunload', () => {
         userRef.remove();
     });
