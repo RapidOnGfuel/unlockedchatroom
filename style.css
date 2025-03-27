@@ -33,13 +33,22 @@ body {
 
 /* Individual Message Styling */
 .message {
+    position: relative; /* Position relative to contain the timestamp */
     padding: 10px 15px;
     border-radius: 18px;
     margin: 5px 0;
     display: inline-block;
-    max-width: 70%; /* Limits the width of each message */
+    max-width: 70%;
     word-wrap: break-word;
     font-size: 14px;
+}
+
+.timestamp {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-size: 10px;
+    color: #888; /* Lighter color for the timestamp */
 }
 
 /* Sender's Messages (Right side) */

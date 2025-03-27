@@ -48,7 +48,8 @@ function sendMessage() {
     const text = document.getElementById('messageInput').value;
     if (text.trim()) {
         const msgRef = db.ref(`chats/${roomCode}`).push();
-        msgRef.set({ userName, text });
+        const timestamp = new Date().toISOString(); // Get current time in ISO format
+        msgRef.set({ userName, text, timestamp });
         document.getElementById('messageInput').value = ''; // Clear input field
     }
 }
@@ -60,7 +61,7 @@ function listenForMessages() {
     });
 }
 
-function displayMessage({ userName, text }) {
+function displayMessage({ userName, text, timestamp }) {
     const chatBox = document.getElementById('chatBox');
     const msgDiv = document.createElement('div');
     msgDiv.classList.add('message');
@@ -72,7 +73,11 @@ function displayMessage({ userName, text }) {
         msgDiv.classList.add('otherMessage'); // Left side for others' messages
     }
 
-    msgDiv.textContent = `${userName}: ${text}`;
+    // Format the timestamp to 24-hour time
+    const time = new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+
+    // Create message content with timestamp
+    msgDiv.innerHTML = `<span>${userName}: ${text}</span><span class="timestamp">${time}</span>`;
     chatBox.appendChild(msgDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
