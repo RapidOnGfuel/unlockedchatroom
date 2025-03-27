@@ -34,34 +34,29 @@ document.getElementById('joinBtn').addEventListener('click', () => {
 });
 
 document.getElementById('launchBtn').addEventListener('click', () => {
-    userName = document.getElementById('username').value.trim();
-    roomCode = document.getElementById('roomCode').value.trim();
+    // Open a new about:blank tab
+    const win = window.open('about:blank', '_blank');
 
-    if (userName && roomCode) {
-        // Open a new about:blank tab
-        const win = window.open('about:blank', '_blank');
+    // Set the title and icon
+    win.document.title = "Google Drive";
+    const link = win.document.createElement('link');
+    link.rel = 'icon';
+    link.href = 'icons/Google_Drive_icon-icons.com_75713.ico'; // Ensure this path is correct
+    win.document.head.appendChild(link);
 
-        // Set the title and icon
-        win.document.title = "Google Drive";
-        const link = win.document.createElement('link');
-        link.rel = 'icon';
-        link.href = 'icons/Google_Drive_icon-icons.com_75713.ico'; // Ensure this path is correct
-        win.document.head.appendChild(link);
+    // Style the body and create an iframe
+    win.document.body.style.margin = '0';
+    win.document.body.style.height = '100vh';
+    const iframe = win.document.createElement('iframe');
+    iframe.style.border = 'none';
+    iframe.style.width = '100%';
+    iframe.style.height = '100%';
+    iframe.allow = 'autoplay; fullscreen';
 
-        // Style the body and create an iframe
-        win.document.body.style.margin = '0';
-        win.document.body.style.height = '100vh';
-        const iframe = win.document.createElement('iframe');
-        iframe.style.border = 'none';
-        iframe.style.width = '100%';
-        iframe.style.height = '100%';
-        iframe.allow = 'autoplay; fullscreen';
-
-        // Set the iframe source to the current page URL
-        const url = window.location.href;
-        iframe.src = url;
-        win.document.body.appendChild(iframe);
-    }
+    // Set the iframe source to the current page URL
+    const url = window.location.href;
+    iframe.src = url;
+    win.document.body.appendChild(iframe);
 });
 
 document.getElementById('sendBtn').addEventListener('click', () => sendMessage());
