@@ -34,17 +34,14 @@ document.getElementById('joinBtn').addEventListener('click', () => {
 });
 
 document.getElementById('launchBtn').addEventListener('click', () => {
-    // Open a new about:blank tab
     const win = window.open('about:blank', '_blank');
 
-    // Set the title and icon
     win.document.title = "Google Drive";
     const link = win.document.createElement('link');
     link.rel = 'icon';
-    link.href = 'icons/Google_Drive_icon-icons.com_75713.ico'; // Ensure this path is correct
+    link.href = 'icons/Google_Drive_icon-icons.com_75713.ico';
     win.document.head.appendChild(link);
 
-    // Style the body and create an iframe
     win.document.body.style.margin = '0';
     win.document.body.style.height = '100vh';
     const iframe = win.document.createElement('iframe');
@@ -53,10 +50,21 @@ document.getElementById('launchBtn').addEventListener('click', () => {
     iframe.style.height = '100%';
     iframe.allow = 'autoplay; fullscreen';
 
-    // Set the iframe source to the current page URL
     const url = window.location.href;
     iframe.src = url;
     win.document.body.appendChild(iframe);
+});
+
+document.getElementById('howToUseBtn').addEventListener('click', () => {
+    document.getElementById('howToUsePopup').classList.add('active');
+    document.getElementById('login').classList.add('blur');
+    document.getElementById('chat').classList.add('blur');
+});
+
+document.getElementById('closePopup').addEventListener('click', () => {
+    document.getElementById('howToUsePopup').classList.remove('active');
+    document.getElementById('login').classList.remove('blur');
+    document.getElementById('chat').classList.remove('blur');
 });
 
 document.getElementById('sendBtn').addEventListener('click', () => sendMessage());
