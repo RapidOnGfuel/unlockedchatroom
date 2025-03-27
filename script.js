@@ -16,6 +16,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
+// ✅ Your Firebase config and initialization here (same as before)
+
 let userName = "";
 let roomCode = "";
 
@@ -32,14 +34,22 @@ document.getElementById('joinBtn').addEventListener('click', () => {
     }
 });
 
-document.getElementById('sendBtn').addEventListener('click', () => {
+document.getElementById('sendBtn').addEventListener('click', sendMessage);
+
+document.getElementById('messageInput').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        sendMessage();
+    }
+});
+
+function sendMessage() {
     const text = document.getElementById('messageInput').value;
     if (text.trim()) {
         const msgRef = db.ref(`chats/${roomCode}`).push();
         msgRef.set({ userName, text });
-        document.getElementById('messageInput').value = '';
+        document.getElementById('messageInput').value = ''; // Clear input field
     }
-});
+}
 
 function listenForMessages() {
     db.ref(`chats/${roomCode}`).on('child_added', (snapshot) => {
