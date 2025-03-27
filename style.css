@@ -48,7 +48,7 @@ body {
     bottom: 5px;
     right: 10px;
     font-size: 10px;
-    color: #888; /* Lighter color for the timestamp */
+    color: #000000; /* Lighter color for the timestamp */
 }
 
 /* Sender's Messages (Right side) */
