@@ -19,6 +19,9 @@ body {
 }
 
 #chatBox {
+    display: flex;
+    flex-direction: column; /* Ensures vertical stacking */
+    align-items: flex-start; /* Aligns messages properly */
     height: 300px;
     overflow-y: auto;
     border: 1px solid #ccc;
@@ -27,23 +30,32 @@ body {
 }
 
 .message {
-    padding: 8px;
+    padding: 8px 12px;
     border-radius: 10px;
-    margin: 5px;
-    display: inline-block;
+    margin: 5px 0; /* Ensures messages are stacked vertically */
+    display: block; /* Forces each message to appear on a new line */
+    width: fit-content;
+    max-width: 80%;
+    word-wrap: break-word;
 }
 
+/* Style for user's messages */
 .myMessage {
-    background: #007bff;
+    background-color: #007bff;
     color: white;
     align-self: flex-end;
+    text-align: right;
+    margin-left: auto; /* Aligns to the right */
 }
 
+/* Style for other users' messages */
 .otherMessage {
-    background: #e9ecef;
+    background-color: #e9ecef;
     color: black;
+    align-self: flex-start;
+    text-align: left;
+    margin-right: auto; /* Aligns to the left */
 }
-
 #messageInput {
     width: 80%;
     padding: 10px;
