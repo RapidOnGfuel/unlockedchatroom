@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Chat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="warning">
+        ⚠️ <strong>Never share any personal information, including your real name, that can be used to identify you!</strong>
+    </div>
+
+    <div id="login">
+        <h2>Join a Chat Room</h2>
+        <input type="text" id="username" placeholder="Enter username">
+        <input type="text" id="roomCode" placeholder="Enter Room ID">
+        <button id="joinBtn">Join</button>
+    </div>
+
+    <div id="chat" class="hidden">
+        <h2 id="chatHeader"></h2>
+        <div id="chatBox"></div>
+        <input type="text" id="messageInput" placeholder="Type a message...">
+        <button id="sendBtn">Send</button>
+    </div>
+
+    <!-- Firebase SDK -->
+<!-- Firebase SDK (v8 for compatibility) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+
+    <!-- Your script -->
+    <script src="script.js"></script>
+</body>
+</html>
