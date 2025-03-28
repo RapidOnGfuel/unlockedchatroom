@@ -99,7 +99,11 @@ body {
     cursor: pointer;
     font-size: 20px;
 }
-
+.senderName {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
 #sendBtn {
     background-color: #007aff;
     color: white;
@@ -190,4 +194,33 @@ body {
 
 .blur {
     filter: blur(5px);
+}
+.emojiPicker {
+    position: absolute;
+    bottom: 60px;
+    left: 10px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.emojiPicker.active {
+    display: block;
+}
+
+.emojiItem {
+    padding: 5px;
+    cursor: pointer;
+    display: inline-block;
+    width: 40px;
+    text-align: center;
+}
+
+.emojiItem:hover {
+    background-color: #f0f0f0;
 }
