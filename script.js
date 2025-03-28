@@ -80,9 +80,11 @@ document.getElementById('uploadBtn').addEventListener('click', () => {
     document.getElementById('imageInput').click();
 });
 
+document.getElementById('imageInput').addEventListener('change', handleImageUpload);
+
 document.getElementById('closeReply').addEventListener('click', () => {
     document.getElementById('replyBox').classList.add('hidden');
-    replyToMessage = null;
+    replyToMessage = null; // Reset the replyToMessage variable
 });
 
 function handleImageUpload(event) {
@@ -136,6 +138,12 @@ function displayMessage({ userName: senderName, text, timestamp, isImage, replyT
     }
 
     const time = new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+
+    // Add sender's username above the message
+    const senderElement = document.createElement('div');
+    senderElement.classList.add('senderName');
+    senderElement.textContent = senderName;
+    msgDiv.appendChild(senderElement);
 
     if (replyTo) {
         const replyDiv = document.createElement('div');
