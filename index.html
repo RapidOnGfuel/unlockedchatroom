@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>U.C.</title>
+    <title>Unchatted</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -67,6 +67,28 @@
             </p>
         </div>
     </div>
+    
+    <!-- Icon Picker Button -->
+<div id="iconPickerContainer">
+    <button id="iconPickerToggle">🌐</button>
+    <div id="iconDropdown" class="hidden">
+        <!-- Add icons here -->
+        <div class="iconOption" data-icon="icons/googledrive.png" data-title="Google Drive">
+            <img src="icons/googledrive.png" alt="Google Drive"><span>Google Drive</span>
+        </div>
+        <div class="iconOption" data-icon="icons/youtube.png" data-title="YouTube">
+            <img src="icons/youtube.png" alt="YouTube"><span>YouTube</span>
+        </div>
+        <div class="iconOption" data-icon="icons/discord.png" data-title="Discord">
+            <img src="icons/discord.png" alt="Discord"><span>Discord</span>
+        </div>
+        <div class="iconOption" data-icon="icons/docs.png" data-title="Google Docs">
+            <img src="icons/docs.png" alt="Google Docs"><span>Docs</span>
+        </div>
+        <!-- Add more icons as needed -->
+    </div>
+</div>
+
 
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>

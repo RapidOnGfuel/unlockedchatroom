@@ -239,3 +239,30 @@ function addUserToRoom(roomCode, userName) {
         userRef.remove();
     });
 }
+
+document.getElementById('iconPickerToggle').addEventListener('click', () => {
+    const dropdown = document.getElementById('iconDropdown');
+    dropdown.classList.toggle('hidden');
+});
+
+document.querySelectorAll('.iconOption').forEach(option => {
+    option.addEventListener('click', () => {
+        const iconUrl = option.dataset.icon;
+        const newTitle = option.dataset.title;
+
+        // Update favicon
+        let favicon = document.querySelector('link[rel="icon"]');
+        if (!favicon) {
+            favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            document.head.appendChild(favicon);
+        }
+        favicon.href = iconUrl;
+
+        // Update tab title
+        document.title = newTitle;
+
+        // Close dropdown
+        document.getElementById('iconDropdown').classList.add('hidden');
+    });
+});

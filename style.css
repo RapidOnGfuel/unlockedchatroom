@@ -224,3 +224,72 @@ body {
 .emojiItem:hover {
     background-color: #f0f0f0;
 }
+
+
+#iconPickerContainer {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+
+#iconPickerToggle {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+#iconDropdown {
+    margin-top: 5px;
+    width: 180px;
+    max-height: 200px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow-y: auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    right: 0;
+    top: 40px;
+    display: none;
+    padding: 5px;
+}
+
+#iconDropdown .iconOption {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#iconDropdown .iconOption:hover {
+    background-color: #f0f0f0;
+}
+
+#iconDropdown .iconOption img {
+    width: 20px;
+    height: 20px;
+}
+
+#iconDropdown .iconOption span {
+    flex-grow: 1;
+    font-size: 14px;
+}
+
+#iconDropdown.hidden {
+    display: none;
+}
+
+#iconPickerContainer, #iconDropdown, #iconPickerToggle {
+    text-align: initial;
+}
+
